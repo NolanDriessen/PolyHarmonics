@@ -1,0 +1,76 @@
+import tkinter.filedialog
+import os
+import numpy
+from nptdms import TdmsFile
+
+
+from InputData import InputData
+
+
+class InputFinding:
+    def parameterSearch(self,TDMSPath):
+        #Request that the user input the startting, stopping and step frequencies
+        '''
+        while (True):
+            startFreq = eval(input('Enter the Starting Frequency: '))
+            if startFreq <= 0:
+                print('The Starting Frequeny must be greater than zero, please enter a different value')
+                continue
+            else:
+                break
+        while (True):
+            stopFreq = eval(input('Enter the Stopping Frequency: '))
+            if stopFreq <= 0:
+                print('The Stopping Frequeny must be greater than zero, please enter a different value')
+                continue
+            else:
+                break
+        while(True):
+            stepFreq = eval(input('Enter the Frequency Step: '))
+            if stepFreq <= 0:
+                print('The Step Frequeny must be greater than zero, please enter a different value')
+                continue
+            else:
+                break
+        '''
+        ###for testing purposes the three values are hard coded
+        startFreq,stopFreq,stepFreq = 100,1000,100
+        TDMS_Time = []
+        TDMS_Data = []
+        numPoints = 10000
+        TDMSfiles = os.listdir(TDMSPath)
+        TDMSfiles = [file for file in TDMSfiles if file.endswith('.tdms')]
+        for file in TDMSfiles: #Loop through all TDMS files in order to get the data within each
+            path = TDMSPath + '/' + file
+            TDMS = TdmsFile(path) #Function that reads the specific TDMS file
+            group = TDMS.groups()[0]
+            channel = TDMS.object(group, 'Dev1/ai0') #returns a channel type
+            data = channel.data
+            time = channel.time_track()
+            
+            #Determining starting point to read file
+            #if highest point is more than 4000 points into the data, start there
+            if numpy.argmax(data)>4000:
+                start = numpy.argmax(data)-4000
+            else: start = 0 #otherwise start at the beginning of the file
+
+            t = time[start:start+numPoints]  #time information from the start point to the end point
+            s = data[start:start+numPoints] #data from the start point to the end point
+            '''
+            Before I uncomment this segment I need to know what minimum threshold to detect, the one given in the email triggers for thousands of data points. I may be misinterpreting something. Felipe.
+            MIN_AMP = 0.06
+            for i in range(len(s)):
+                if s[i] > MIN_AMP:
+                    print('Warning: Index ' + str(i) +' of file ' + file + ' in Grade ' + TDMSPath.split('Grade')[1][1] + ' '  ' drops below the minimum voltage threshold')
+            '''
+            TDMS_Time.append(t) #add the TDMS files data to the set of all TDMS files data
+            TDMS_Data.append(s)
+
+        #Now that the data has all been found it can be set using the InputData() class
+
+        InputData.Set_Start_Freq(startFreq)
+        InputData.Set_Stop_Freq(stopFreq)
+        InputData.Set_Step_Freq(stepFreq)
+        InputData.Set_TDMS_Time(TDMS_Time)
+        InputData.Set_TDMS_Data(TDMS_Data)
+        

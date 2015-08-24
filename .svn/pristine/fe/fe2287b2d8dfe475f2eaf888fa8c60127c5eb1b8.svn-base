@@ -1,0 +1,54 @@
+System as is comparision:
+
+text file comparison:
+assert(filecmp.cmp(new_file,old_file,False))  Returns true if the files have exactly the same contents
+
+	-This will check if the input is being found properly from the second column of
+Original_Data.txt and Filtered_Data.txt
+	-It will check that the filtering is done properly through 
+the third column of Filtered_Data.txt
+	-And it will check if the DFT is done correctly through the third column of
+Original_Data.txt and Filtered_Data.txt
+This effectively covers everything aside from the plots. If the DFT, filtering, file finding or any part of the analysis is wrong it will be reflected within these files.
+
+
+
+The same thing can be done for the plots, assert(filecmp.cmp(new_plot,old_plot,False))
+
+
+This covers the input finding, filtering, transforming and plotting which is every large component of the system.
+
+
+
+Unit Testing:
+
+Input Finding Module:
+	-Create a specific directory to use as input
+	-assert that it finds the proper number of files
+	-assert each piece of data it pulls out of each file is what it should be
+
+**Next three modules are handled by outside libraries. Do I need to test these?**
+
+Signal Transforming Module: 
+	-Compare calculated values to predefined correct values from the standard input
+
+
+Plotting Module: Same as above, done by Matplotlib
+	-Prepare a directory with acceptable output plots for the standard input.
+	-size of files? Binary formats difficult to compare. 
+	-Filecmp.cmp() with expected plots
+
+Filtering Module:
+	-Compare calculated values to predefined correct values from the standard input
+
+Control Module:
+	-Unsure of this one, could test the boundaries for the input conditions
+ex) Input something with exactly MIN_AMP, something with more something with less.
+Other than that it just directs which module comes after each.
+
+Output Module:
+	-filecmp.cmp with each of the three files. Correct files will come from standard input
+
+Filtered Data Module/Plot Data Module/Transformed Signal Data Module/Input Data Module:
+	-Each data structure will have the specific elements of its structure compared 
+with the expected output from the standard input.

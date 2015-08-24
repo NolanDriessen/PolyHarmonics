@@ -1,0 +1,12 @@
+[Frequencies]
+Start Frequency: 100
+Stop Frequency: 1000
+Step Frequency: 100
+
+[Symbolic Constants]
+Num Points: 10000
+Min Amp: 0.06
+Jump Back: 4000
+
+[Paths]
+Main Directory: C:/Users/Munia/Documents/Work/output

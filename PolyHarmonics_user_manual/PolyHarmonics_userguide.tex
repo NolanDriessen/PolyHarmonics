@@ -1,0 +1,134 @@
+\documentclass[12pt]{article}
+
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\hypersetup{
+      colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with 
+%linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+
+%% Comments
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{magenta}{SS}{#1}}
+\newcommand{\nd}[1]{\authornote{blue}{ND}{#1}}
+\newcommand{\ah}[1]{\authornote{violet}{AH}{#1}}
+
+\newcommand{\progname}{PolyHarmonics}
+
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{User Manual for \progname} 
+\author{Nolan Driessen}
+\date{\today}
+	
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+\subsection{Purpose of Document}
+
+This document is designed to assist with installation and setup of \progname{} 
+on Python version 2.7.
+
+
+\section{Installation}
+The following section provides an overview of what needs to be installed before 
+\progname{} will function.
+
+\subsection{Python}
+\progname{} is designed to function on Python version 2.7, as such Python must 
+be installed and updated to this version in order for the software to run 
+properly.
+\subsection{Required Modules}
+The following modules do not come with Python 2.7 by default and must be 
+installed separately.
+\begin{itemize}
+\item NumPy: Provides support for large multi-dimensional arrays and many high 
+level mathematical functions.
+\item SciPy: Builds on NumPy with modules for optimization and many commonly 
+used functions in scientific computing.
+\item Matplotlib: A Python 2D plotting library.
+\item Pywt: Used for wavelet transforms, also known as PyWavelets.
+\item npTDMS: Required in order to read TDMS files.
+\end{itemize}
+\nd{The following section is debatable whether it should be kept in, however 
+without these extra details it will be difficult to install the modules 
+properly. Additionally these steps have only been tested on windows but I 
+believe they will hold for all 3 main operating systems.}	
+
+\subsection{Installation Steps}
+In order to install the modules properly follow these steps:
+\begin{itemize}
+\item From a command line enter the command: pip install update
+\item From either a Python shell or command line running Python run the 
+following command: import pip; print(pip.pep425tags.get\_supported())
+
+Take note of the first entry as this will be used to install the proper 
+modules for your system.
+\item On the following link download each required modules according to the 
+first entry returned from the previous step. \newline
+\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/}
+
+For example, if the first entry returned from the python command was (`cp34',
+`none', `win32') you would want the NumPy the file called 
+``numpy‑1.9.2+mkl‑cp34‑none‑win32.whl". Download the proper version of each
+required module and place it within the \newline
+Python/Tools/Scripts folder.
+\item Navigate a command window to the Python/Tools/scripts folder and run the 
+command: pip install your-package.whl  
+\newline Where your-package is the name of the 
+file previously downloaded.
+\end{itemize}
+\nd{Right now this is worded very informally, I will need to go back and change 
+the wording. Additional testing would be optimal on any system besides 
+windows, I can confirm this process works for both windows 7 and 8. There is also the issue of the libraries being downloaded from a source other than the actual Python source, if this is unacceptable this portion can easily be omitted.}
+
+\section{Using \progname{}}
+
+\subsection{Running}
+Once the specified modules have been properly installed \progname{} can be run 
+by opening the .py file and choosing run. 
+\newline When prompted input the starting frequency, the stopping frequency and 
+the step between each frequency that was used to test. Then select the directory 
+which contains the folder you wish to use as input. All plots and text files the 
+system outputs will go into this folder.
+
+
+
+
+
+\end{document}
+
+
