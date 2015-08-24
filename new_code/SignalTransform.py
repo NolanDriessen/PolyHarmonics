@@ -20,8 +20,8 @@ class SignalTransform():
         originalTransformData = []
         for data in TDMSdata:
             n = len(data)
-            transform = numpy.fft.fft(data,NUM_POINTS)/n #Takes the FFT CONSIDER DIVIDING BY N. Felipe
-            transform = transform[0:NUM_POINTS/4] #Ask Felipe why this is happening
+            transform = numpy.fft.fft(data,NUM_POINTS)/n #Takes the FFT and normalizes it
+            transform = transform[0:NUM_POINTS/4]
             originalTransformData.append(transform)
 
         #The following for loop takes the FFT on the filtered data
@@ -35,12 +35,12 @@ class SignalTransform():
         originalFreqData = []
         filterFreqData = []
         for time in TDMStime:
-            t2 = [time[i] for i in [i for i in range(len(time)) if i%2 == 1]] #why every other point? Felipe.
+            t2 = [time[i] for i in [i for i in range(len(time)) if i%2 == 1]]
             filterStep = ((t2[1]-t2[0])*1000)
             originalStep = ((time[1]-time[0])*1000)
 
             freqOriginal = numpy.fft.fftfreq(NUM_POINTS,originalStep)
-            freqOriginal = freqOriginal[0:NUM_POINTS/4] #Same as above why is this happening?
+            freqOriginal = freqOriginal[0:NUM_POINTS/4]
             originalFreqData.append(freqOriginal)
 
             freqFilter = numpy.fft.fftfreq(int(NUM_POINTS/2),filterStep)

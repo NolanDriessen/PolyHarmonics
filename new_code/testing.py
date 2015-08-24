@@ -14,7 +14,7 @@ class SystemTestCase(unittest.TestCase):
         main()
         config = configparser.ConfigParser()
         config.read('config.txt')
-        mainOutput = config['Paths']['Main Directory'] + '/Analysis/Grade 0/experiment 1/test'
+        mainOutput = config['Paths']['System Test 1']
         testOutput = 'standard_test_cases/input 1/Expected Output/Analysis/Grade 0/Experiment 1/test'
 
 
@@ -25,7 +25,7 @@ class SystemTestCase(unittest.TestCase):
         comparisons = [] 
         comparisons.append(filecmp.cmp(mainOutput + '/Original_Data.txt',testOutput+ '/Original_Data.txt'))
         comparisons.append(filecmp.cmp(mainOutput + '/Filtered_Data.txt',testOutput+ '/Filtered_Data.txt'))
-        #comparisons.append(filecmp.cmp(mainOutput + '/Scattering_Data.txt',testOutput+ '/Scattering_Data.txt'))
+        comparisons.append(filecmp.cmp(mainOutput + '/Scattering_Data.txt',testOutput+ '/Scattering_Data.txt'))
         #Right now this isnt done so commenting this out
 
         if (os.listdir(mainOutput +'/Event Pictures') != os.listdir(testOutput+'/Event Pictures')):
@@ -47,7 +47,7 @@ class SystemTestCase(unittest.TestCase):
         comparisons.append(diff.getbbox() == None)
         
         return comparisons
-        
+  
     def systemTest(self):
         results = self.testSetup()
         for i in range(len(results)):
