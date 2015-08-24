@@ -1,6 +1,6 @@
-Code contains both the Python code for PolyHarmonics and the input files for a test.
+Code contains the original Python code for PolyHarmonics and the input files for a test.
 	--Analysis is the output from running the code on the Python 3 version. It contains 
-the text files, the plots and the contour plot from the input Felipe has given me.
+the text files, the plots and the contour plot from the input given to me.
 	--Grade 0 is a series of input files given to me by Filipe in order to run the analysis. 
 Choose the directory above grade 0 in order to properly run.
 	--PolyHarmonics-June2nd.py is the code
@@ -11,9 +11,14 @@ This folder also includes the standard_test_cases folder which is used for testi
 there is an input 1 folder which is used for the (currently only) system test as well as 
 a Unit Test Output folder which is where the expected output for the unit tests are contained.
 
-PolyHarmonics_MG, PolyHarmonics_MIS,PolyHarmonics_SRS PolyHarmonics_User_Manual and PolyHarmonics_V&V are the module guide, 
-module interface specification, the SRS the user manual and the V&V plan respectively. Each are a work in progress and these 
-folders contain the .tex files, PDFs and the files needed to compile the .tex files.
+PolyHarmonics_MG is the Module Guide. This document goes over the modules of PolyHarmonics and what each module contains
 
-The presentations folder contains the presentations on Pweave and PyUnit that I gave in the Thursday morning meetings.
-They inlude the PDFs presented as well as any accompanying files as needed.
+PolyHarmonics_MIS is the Module Interface Specification. This document gives more details on each module including details of their access programs
+
+PolyHarmonics_SRS is the Software Requirements Specification. This is an abstract document detailing the requirements of PolyHarmonics and WHAT the software does without saying HOW to do it.
+
+PolyHarmonics_User_Manual gives some details on which modules to install and how to install them.
+
+PolyHarmonics_V&V is the Validation and Verification plan. This document contains details on the testing of PolyHarmonics.
+
+Each of these documents contains a PDF and a .tex file. The .tex file is the LaTeX file used to compile and edit the PDFs. The PDF was included directly for ease of access.
