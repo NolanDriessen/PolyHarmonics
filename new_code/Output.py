@@ -1,9 +1,9 @@
 from InputData import InputData
 from TransformedSignalData import TransformedSignalData
-import numpy
+import numpy ####Take out if testAmp is different from what is wanted
+
 class Output():
     def output(self,path):
-        #Gets required input from classes.
         start = InputData.Get_Start_Freq()
         stop = InputData.Get_Stop_Freq()
         step = InputData.Get_Step_Freq()
@@ -12,17 +12,9 @@ class Output():
         filterData = TransformedSignalData.Get_Filtered_Transformed_Data()
         originalFrequencyData = TransformedSignalData.Get_Original_Frequency_Data()
         filterFrequencyData = TransformedSignalData.Get_Filtered_Frequency_Data()
-
-
-        #Setting up variables for Scattered_Data.txt. This is created purely based off of PolyHarmonics-June2nd.py
-        FirstSide = 0 
-        SecondSide = 0
-        MainSignal = 0
-        PeakRange = 5
         
-        
-        #Removes imaginary components and normalizes data
         testAmp = []
+        '''Dont like these need to know why this is happening, will rename and redo after I understand'''
         for data in originalData:
             testAmp.append(abs(data)/max(abs(data)))
         filterTestAmp = []
@@ -35,11 +27,9 @@ class Output():
         scatteredText = open(path + '/Scattering_Data.txt', 'w')
         
         for i in range(len(filterData)): #Loop through TDMS files
-            CurrentFreq = (i*step)+start
-            DeltaFreq = originalFrequencyData[i][1]-originalFrequencyData[i][0]
             for j in range(len(originalFrequencyData[i])): #Loop through data within the current TDMS file
 
-                col1 = str(CurrentFreq)
+                col1 = str((i*step)+start)
                 
                 col2 = str(originalFrequencyData[i][j])
                 col2filtered = str(filterFrequencyData[i][j])
@@ -48,6 +38,7 @@ class Output():
                 col3filtered = str(filterTestAmp[i][j])
 
                 originalText.write(col1+','+col2+','+col3+'\n')
+<<<<<<< HEAD
                 filteredText.write(col1+','+col2filtered+','+col3filtered+'\n')                
                 if originalFrequencyData[i][j]<CurrentFreq-PeakRange: FirstSide=FirstSide+(testAmp[i][j]*DeltaFreq) 
                 if originalFrequencyData[i][j]>CurrentFreq+PeakRange: SecondSide=SecondSide+(testAmp[i][j]*DeltaFreq)
@@ -58,6 +49,14 @@ class Output():
             ScFactorSide2 =SecondSide/(FirstSide+SecondSide+MainSignal)
             scatteredText.write(str(CurrentFreq)+","+str(ScFactorMain)+","+str(ScFactorSide1)+","+str(ScFactorSide2)+"\n")
 
+=======
+                filteredText.write(col1+','+col2filtered+','+col3filtered+'\n')
+
+        '''
+        The only thing remaining is the scattering factor which i dont really understand.
+        I could copy it but I dont really want to.
+        '''
+>>>>>>> parent of c44f829... Working on Scattering_Data.txt
 
         originalText.close()
         filteredText.close()

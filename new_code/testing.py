@@ -14,7 +14,7 @@ class SystemTestCase(unittest.TestCase):
         main()
         config = configparser.ConfigParser()
         config.read('config.txt')
-        mainOutput = config['Paths']['System Test 1']
+        mainOutput = config['Paths']['Main Directory'] + '/Analysis/Grade 0/experiment 1/test'
         testOutput = 'standard_test_cases/input 1/Expected Output/Analysis/Grade 0/Experiment 1/test'
 
 
@@ -47,7 +47,7 @@ class SystemTestCase(unittest.TestCase):
         comparisons.append(diff.getbbox() == None)
         
         return comparisons
-  
+        
     def systemTest(self):
         results = self.testSetup()
         for i in range(len(results)):

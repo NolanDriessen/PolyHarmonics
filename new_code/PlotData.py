@@ -18,8 +18,12 @@ class PlotData():
         originalTransform = TransformedSignalData.Get_Original_Transformed_Data()
         originalFrequency = TransformedSignalData.Get_Original_Frequency_Data()
 
+<<<<<<< HEAD
         #Remove the imaginary components and normalize the data
         testFFT = []
+=======
+        testFFT = [] #Why is this needed? Felipe.
+>>>>>>> parent of c44f829... Working on Scattering_Data.txt
         for data in originalTransform:
             testFFT.append(abs(data)/max(abs(data)))
 
@@ -51,7 +55,8 @@ class PlotData():
             matplotlib.pyplot.close('all') #Closes all figure windows
 
         #Contour plotting
-        interval = numpy.arange(start, stop + 1, step) #Create a numpy array containing values spaced by step on the interval start to stop. The +1 forces the half closed interval to include the final value, the stopping frequency.
+        interval = numpy.arange(start, stop + 1, step) #Create a numpy array containing values spaced by step on the interval start to stop
+        '''Why +40 above (I changed to +1)? Felipe'''
         Xm = numpy.empty([len(originalFrequency), len(originalFrequency[i])]) #Create a 2D numpy array without initializing values. 10 arrays of size 2500 each for the standard case
         for i in range(0, len(interval)): #Fills the array previously created
             Xm[i][0:] = interval[i]
