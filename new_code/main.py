@@ -13,13 +13,6 @@ from Output import Output
 
 
 def main():
-    #Initalize classes
-    finder = InputFinding()
-    haar = Filtering()
-    transformer = SignalTransform()
-    plotter = PlotData()
-    output = Output()
-
     #Read the main path from the config files
     config = configparser.ConfigParser()
     config.read('config.txt')
@@ -45,7 +38,7 @@ def main():
                 Filtering().Haar() #Takes the Haar wavelet filter
                 SignalTransform().Transform() #Applies the FFT to both the filtered data and the original data
                 PlotData().plot(plotPath)  #Creates the plots on both the original data and the transformed data
-                Output().output(plotPath)
+                Output().output(plotPath) #Creates the text files
                 print('Done ' + grade +experiment + test)
     print('Elapsed Time: ' + ('%.2f' % (time.time() - t0)) + ' s')
 

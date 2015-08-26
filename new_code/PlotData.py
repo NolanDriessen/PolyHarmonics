@@ -18,7 +18,7 @@ class PlotData():
         originalTransform = TransformedSignalData.Get_Original_Transformed_Data()
         originalFrequency = TransformedSignalData.Get_Original_Frequency_Data()
 
-        #This removes the imaginary components and normalizes the data
+        #Remove the imaginary components and normalize the data
         testFFT = []
         for data in originalTransform:
             testFFT.append(abs(data)/max(abs(data)))

@@ -9,9 +9,11 @@ class Filtering():
         TDMSdata = InputData.Get_TDMS_Data()
         approx = [] #Holds the set of approximate coefficients
         detailed = [] #Holds the set of detailed coefficients
-        '''This loop does the haar wavelet filter on the data found in each TDMS file:
+        '''
+        This loop does the haar wavelet filter on the data found in each TDMS file:
         cA holds the approximate coefficients of the data found within the current for loop iteration
-        cD holds the detailed coefficients of the data found within the current for loop iteration.'''
+        cD holds the detailed coefficients of the data found within the current for loop iteration.
+        '''
         for data in TDMSdata:
             cA, cD = pywt.dwt(data, 'haar')
             approx.append(cA)

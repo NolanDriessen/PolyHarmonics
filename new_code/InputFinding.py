@@ -13,6 +13,7 @@ class InputFinding:
     def parameterSearch(self,TDMSPath):
         config = configparser.ConfigParser()
         config.read('config.txt')
+        
         #This section reads the needed information from the config file 
         startFreq = config.getint('Frequencies','Start Frequency')
         stopFreq = config.getint('Frequencies','Stop Frequency')
@@ -41,16 +42,11 @@ class InputFinding:
 
             t = time[start:start+NUM_POINTS]  #time information from the start point to the end point
             s = data[start:start+NUM_POINTS] #data from the start point to the end point
-            '''
-            Before I uncomment this segment I need to know what minimum threshold to detect, the one given in the email triggers for thousands of data points. I may be misinterpreting something. Felipe.
-            for i in range(len(s)):
-                if s[i] > MIN_AMP:
-                    print('Warning: Index ' + str(i) +' of file ' + file + ' in Grade ' + TDMSPath.split('Grade')[1][1] + ' '  ' drops below the minimum voltage threshold')
-            '''
+
             TDMS_Time.append(t) #add the TDMS files data to the set of all TDMS files data
             TDMS_Data.append(s)
 
-        #Now that the data has all been found it can be set using the InputData() class
+        #Now that the data has all been found it can be set using the InputData class
 
         InputData.Set_Start_Freq(startFreq)
         InputData.Set_Stop_Freq(stopFreq)

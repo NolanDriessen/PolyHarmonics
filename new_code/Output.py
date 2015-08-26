@@ -48,19 +48,16 @@ class Output():
                 col3filtered = str(filterTestAmp[i][j])
 
                 originalText.write(col1+','+col2+','+col3+'\n')
-                filteredText.write(col1+','+col2filtered+','+col3filtered+'\n')
-                if originalFrequencyData[i][j]<(CurrentFreq-PeakRange): FirstSide=FirstSide+(testAmp[i][j]*DeltaFreq) 
-                if originalFrequencyData[i][j]>(CurrentFreq+PeakRange): SecondSide=SecondSide+(testAmp[i][j]*DeltaFreq)
+                filteredText.write(col1+','+col2filtered+','+col3filtered+'\n')                
+                if originalFrequencyData[i][j]<CurrentFreq-PeakRange: FirstSide=FirstSide+(testAmp[i][j]*DeltaFreq) 
+                if originalFrequencyData[i][j]>CurrentFreq+PeakRange: SecondSide=SecondSide+(testAmp[i][j]*DeltaFreq)
                 if abs(originalFrequencyData[i][j]-CurrentFreq)<PeakRange: MainSignal = MainSignal+(testAmp[i][j]*DeltaFreq)
-            #print("Main Signal: " + str(MainSignal)+ " First Side " + str(FirstSide) + " Second Side " + str(SecondSide))
+            
             ScFactorMain = 1-(MainSignal/(FirstSide+SecondSide+MainSignal))
             ScFactorSide1 =FirstSide/(FirstSide+SecondSide+MainSignal)
             ScFactorSide2 =SecondSide/(FirstSide+SecondSide+MainSignal)
-            scatteredText.write(str((i*step)+start)+","+str(ScFactorMain)+","+str(ScFactorSide1)+","+str(ScFactorSide2)+"\n")
-        '''
-        The only thing remaining is the scattering factor which i dont really understand.
-        I could copy it but I dont really want to.
-        '''
+            scatteredText.write(str(CurrentFreq)+","+str(ScFactorMain)+","+str(ScFactorSide1)+","+str(ScFactorSide2)+"\n")
+
 
         originalText.close()
         filteredText.close()
