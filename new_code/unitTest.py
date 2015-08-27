@@ -10,18 +10,21 @@ import filecmp
 import unittest
 import shutil
 import numpy
+import configparser
 
 class UnitTest(unittest.TestCase):
     DataTests = [100,150.12,'String Test',[1,2,3],[[1,2,3],[4,5,6],[7,8,9]],[[1.1123,'2',3],[[4,5,6],'String Test',6],[9]]]
 
     def TestInputFinding(self):
+        config = configparser.ConfigParser()
+        config.read('config.txt')
         finding = InputFinding()
         path = 'standard_test_cases/input 1/Grade 0/experiment 1/test'
         finding.parameterSearch(path)
         
-        assert InputData.Get_Start_Freq() == 100, 'Starting Frequency is incorrect'
-        assert InputData.Get_Stop_Freq() == 1000,'Stopping Frequency is incorrect'
-        assert InputData.Get_Step_Freq() == 100,'Frequency Step is incorrect'
+        assert InputData.Get_Start_Freq() == config.getint('Frequencies','Start Frequency'),'Starting Frequency is incorrect'
+        assert InputData.Get_Stop_Freq() == config.getint('Frequencies','Stop Frequency'),'Stopping Frequency is incorrect'
+        assert InputData.Get_Step_Freq() == config.getint('Frequencies','Step Frequency'),'Frequency Step is incorrect'
         assert len(InputData.Get_TDMS_Time()) == 10, 'TDMS Time does not have the proper number of entries'
         assert len(InputData.Get_TDMS_Data()) == 10, 'TDMS Data does not have the proper number of entries'
 
