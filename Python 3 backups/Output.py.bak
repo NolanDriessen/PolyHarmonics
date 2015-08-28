@@ -1,10 +1,7 @@
-from __future__ import division
-from __future__ import absolute_import
 from InputData import InputData
 from TransformedSignalData import TransformedSignalData
 import numpy
-from io import open
-class Output(object):
+class Output():
     def output(self,path):
         #Gets required input from classes.
         start = InputData.Get_Start_Freq()
@@ -33,25 +30,25 @@ class Output(object):
             filterTestAmp.append(abs(data)/max(abs(data)))
 
         #opens the three text files written by this module
-        originalText = open(path + u'/Original_Data.txt', u'w')
-        filteredText = open(path + u'/Filtered_Data.txt', u'w')
-        scatteredText = open(path + u'/Scattering_Data.txt', u'w')
+        originalText = open(path + '/Original_Data.txt', 'w')
+        filteredText = open(path + '/Filtered_Data.txt', 'w')
+        scatteredText = open(path + '/Scattering_Data.txt', 'w')
         
-        for i in xrange(len(filterData)): #Loop through TDMS files
+        for i in range(len(filterData)): #Loop through TDMS files
             CurrentFreq = (i*step)+start
             DeltaFreq = originalFrequencyData[i][1]-originalFrequencyData[i][0]
-            for j in xrange(len(originalFrequencyData[i])): #Loop through data within the current TDMS file
+            for j in range(len(originalFrequencyData[i])): #Loop through data within the current TDMS file
 
-                col1 = unicode(CurrentFreq)
+                col1 = str(CurrentFreq)
                 
-                col2 = unicode(originalFrequencyData[i][j])
-                col2filtered = unicode(filterFrequencyData[i][j])
+                col2 = str(originalFrequencyData[i][j])
+                col2filtered = str(filterFrequencyData[i][j])
 
-                col3 = unicode(testAmp[i][j])
-                col3filtered = unicode(filterTestAmp[i][j])
+                col3 = str(testAmp[i][j])
+                col3filtered = str(filterTestAmp[i][j])
 
-                originalText.write(col1+u','+col2+u','+col3+u'\n')
-                filteredText.write(col1+u','+col2filtered+u','+col3filtered+u'\n')                
+                originalText.write(col1+','+col2+','+col3+'\n')
+                filteredText.write(col1+','+col2filtered+','+col3filtered+'\n')                
                 if originalFrequencyData[i][j]<CurrentFreq-PeakRange: FirstSide=FirstSide+(testAmp[i][j]*DeltaFreq) 
                 if originalFrequencyData[i][j]>CurrentFreq+PeakRange: SecondSide=SecondSide+(testAmp[i][j]*DeltaFreq)
                 if abs(originalFrequencyData[i][j]-CurrentFreq)<PeakRange: MainSignal = MainSignal+(testAmp[i][j]*DeltaFreq)
@@ -59,7 +56,7 @@ class Output(object):
             ScFactorMain = 1-(MainSignal/(FirstSide+SecondSide+MainSignal))
             ScFactorSide1 =FirstSide/(FirstSide+SecondSide+MainSignal)
             ScFactorSide2 =SecondSide/(FirstSide+SecondSide+MainSignal)
-            scatteredText.write(unicode(CurrentFreq)+u","+unicode(ScFactorMain)+u","+unicode(ScFactorSide1)+u","+unicode(ScFactorSide2)+u"\n")
+            scatteredText.write(str(CurrentFreq)+","+str(ScFactorMain)+","+str(ScFactorSide1)+","+str(ScFactorSide2)+"\n")
 
 
         originalText.close()
