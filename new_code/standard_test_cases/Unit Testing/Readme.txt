@@ -1,0 +1,3 @@
+The folder Expected Output Mac should be used when testing on a Mac computer, since the implementation of Matplotlib on a Mac is slightly different.  Visually the files are the same, but they are off by one pixel.  When run on a Mac the following warning will appear (UserWarning: tight_layout : falling back to Agg renderer).  This warning can be safety ignored, as long as the results agree with the “Expected Output Mac.”
+
+Initial testing was done with Python 2.7.10 and Matplotlib
