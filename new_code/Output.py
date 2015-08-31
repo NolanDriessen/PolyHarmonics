@@ -18,6 +18,7 @@ class Output(object):
 
 
         #Setting up variables for Scattered_Data.txt. This is created purely based off of PolyHarmonics-June2nd.py
+        #***This creates different values than I was given
         FirstSide = 0 
         SecondSide = 0
         MainSignal = 0
