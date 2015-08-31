@@ -57,9 +57,8 @@
 
 \section{Introduction}
 
-\subsection{Purpose of Document}
-
-This document is designed to assist with installation and setup of \progname{} 
+This document is designed to assist with installation, setup and upkeep of 
+\progname{} 
 on Python version 2.7.
 
 
@@ -71,8 +70,8 @@ The following section provides an overview of what needs to be installed before
 \progname{} is designed to function on Python version 2.7, as such Python must 
 be installed and updated to this version in order for the software to run 
 properly.
-\subsection{Required Modules}
-The following modules do not come with Python 2.7 by default and must be 
+\subsection{Required Packages}
+The following packages do not come with Python 2.7 by default and must be 
 installed separately.
 \begin{itemize}
 \item NumPy: Provides support for large multi-dimensional arrays and many high 
@@ -84,24 +83,39 @@ used functions in scientific computing.
 \item npTDMS: Required in order to read TDMS files.
 \end{itemize}
 
-\subsection{Installation Steps}
-In order to install the modules properly follow these steps:
+\subsection{Installation Steps} \label{Easy}
+The following method requires pip which comes preinstalled with Python version 
+2.7.9 and beyond. 
+\begin{itemize}
+\item From the command line type the following command:
+pip install [package name]
+
+\item To verify the package was properly installed, open an Idle Python GUI and 
+enter the command:
+import [package name]
+\item If no error is returned the packages have been properly installed. However 
+if an import error is given, please refer to section \ref{Detailed} for further 
+instructions.
+\end{itemize}
+\subsubsection{Detailed Windows Installation Steps} \label{Detailed}
+In the event the steps outlined in section \ref{Easy} fail follow these steps:
 \begin{itemize}
 \item From a command line enter the command: pip install update
 \item From either a Python shell or command line running Python run the 
-following command: import pip; print(pip.pep425tags.get\_supported())
+following command: import pip; print pip.pep425tags.get\_supported()
 
 Take note of the first entry as this will be used to install the proper 
 modules for your system.
-\item From the following link download each required modules according to the 
-first entry returned from the previous step. Please note this website is unofficial. \newline
+\item From the following link download each required package according to the 
+first entry returned from the previous step. Please note this website is 
+unofficial. \newline
 \url{http://www.lfd.uci.edu/~gohlke/pythonlibs/}
 
-For example, if the first entry returned from the python command was (`cp34',
+For example, if the first entry returned from the python command was (`cp27',
 `none', `win32') you would want the NumPy the file called 
-``numpy‑1.9.2+mkl‑cp34‑none‑win32.whl". Download the proper version of each
-required module and place it within the \newline
-Python/Tools/Scripts folder.
+``numpy‑1.9.2+mkl‑cp27‑none‑win32.whl". Download the proper version of each
+required module and place it within the\\
+Python27/Tools/Scripts folder.
 \item Navigate a command window to the Python/Tools/scripts folder and run the 
 command: pip install your-package.whl  
 \newline Where your-package is the name of the 
@@ -113,16 +127,69 @@ file previously downloaded.
 
 \subsection{Running}
 Once the specified modules have been properly installed \progname{} can be run 
-by opening the .py file and choosing run. 
-\newline When prompted input the starting frequency, the stopping frequency and 
-the step between each frequency that was used to test. Then select the directory 
-which contains the folder you wish to use as input. All plots and text files the 
-system outputs will go into this folder.
+by opening the file main.py and choosing run. \\
+Before running, the file config.txt must be modified to contain proper input. 
+This file is located in the same directory as main.py. Open config.txt and edit 
+the start frequency, stop frequency and step frequency as well as the Main 
+Directory entries. The system will use these entries as input and give all 
+output in the location specified by Main Directory. 
 
+\section{Likely Changes}
+\progname{} has been developed in order to make likely changes easily. 
+When making a change, first refer to the Module Guide in order to identify which 
+module will contain this change. 
+\subsubsection{New Functions}
+In some cases, a new function will need to be created in order to accommodate a 
+change. If this is the case, within the proper module create a new function and 
+identify which input will be required from other modules. Using the Get function 
+of that specific data you can receive the input from a separate module. Once the 
+required input has been gathered the body of the function can be built according 
+to the problem being solved. Finally, after the function is complete main.py 
+must be modified to call this function, have main.py call the function using dot 
+notation, module.function().
+\subsubsection{Modifying Existing Functions}
+In the case an existing function must be modified the steps will be similar to 
+creating a new function. First identify the module that the change should be 
+made in. If a function already exists but must be modified, identify if the 
+required input is already within the module. If necessary remove unnecessary Get 
+functions, or add the new required ones. Finally modify the function 
+accordingly, no changes should need to be made to main.py or any other module if 
+the likely change is well contained.
 
+\section{Testing}
+This section describes running the test cases for \progname{}, including setup 
+and expected behaviour. 
+\subsection{System Tests}
+There is one system test created at the moment. In order to run the test, ensure 
+that the config.txt file is setup such that:\\
+Start Frequency: 100\\
+Stop Frequency: 1000\\
+Step Frequency: 100\\
+Main Directory: standard\_test\_cases/input 1\\
+One additional package is required for the system testing, download Pillow using the steps outlined in section \ref{Detailed}. Once the parameters are set, open Testing.py and run it. The system will run 
+main.py and execute one test case, which compares the created text files and 
+graphs to the expected output. If the system either errors or fails the program 
+is not running as expected and must be fixed before being used for analysis.
+\subsection{Unit Tests}
+Unit testing tests each module on its own, rather than the whole system at once. 
+The unit tests do not require any modification of config.txt. In order to run 
+the unit tests, open unitTest.py and run it. This will execute 6 tests, and 
+indicate if any error or fail. 
 
-
+\subsection{Python Version 3}
+In order to convert the current Python 2.7 code into Python 3 code open a 
+command line, navigate to the folder containing the \progname{} modules and run 
+the following command:\\
+python C:/Python27/Tools/scripts/2to3.py -w [module to convert]\\
+Where [module to convert] will be replaced by one of the files, such as main.py.
+This will have to be done for each module, and the result will have a .bak 
+backup file and the Python 3 version of the converted code. 
 
 \end{document}
+
+
+
+
+
 
 
