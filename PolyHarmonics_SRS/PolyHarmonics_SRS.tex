@@ -515,38 +515,6 @@ http://en.wikipedia.org/wiki/Discrete\_Fourier\_transform}\\
 \end{tabular}
 \end{minipage}\\
 
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  
-Number& T\refstepcounter{theorynum}\thetheorynum   \label{T2} \\  
-  \hline
-
-  Label&\bf Haar Wavelet Filter\\
-  \hline
-  Input & The signal to be filtered \\ 
-  \hline
-  Output & \\
-  \hline
-  Equation&  \\   
-
-  \hline
-  Description & 
-                
-  \\
-  \hline
-  Source &
-  \\
-
-  \hline
-  Ref. By\ & \\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
 \subsubsection{Data Definitions}\label{sec_datadef}
 
 This section collects and defines all the data needed to fully define the 
@@ -678,7 +646,7 @@ files must be verified.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Filter}:] 
 \textbf{Description:} \progname{} shall use the input files to apply a Haar 
-wavelet filter using T\ref{T2}.\\ 
+wavelet filter. \cite{WaveletIntro} \cite{WaveletGuide}\\ 
 \textbf{Rationale:} 
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Tranform}:] 
@@ -687,10 +655,6 @@ using T\ref{T1}.\\
 \textbf{Rationale:} The signal must be transformed into the frequency spectrum
 to properly analyze and interpret the signal.\newline
 
-\wss{Avoid the use of in order to.  You might even want to \textbf{search for 
-this
-  phrase in your documents}.} \nd{Removed the phrase, bolded your text to ensure 
-I remember to search for it}
 %Fit Criterion: Each signal found shall have a corresponding frequency spectrum
 %signal from which analysis can be done.
 
@@ -1095,9 +1059,6 @@ UH\ref{NF_LR}, PR\ref{NF_SL1}, PR\ref{NF_SL2}, OE\ref{NF_PR2}\\
   MIN\_LIFESPAN				&	3 years		& PR\ref{NF_LG}\\
   \bottomrule
 \end{tabular}\\
-
-\wss{This file is coming along nicely.  We should be able to send it to the
-  customers for comment soon.}
 
 \end{document}
 
