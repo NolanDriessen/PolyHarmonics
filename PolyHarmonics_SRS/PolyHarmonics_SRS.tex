@@ -296,17 +296,16 @@ user characteristics and the system constraints.
 \begin{itemize}
 \item The end user of \progname{} is expected to be a senior undergraduate or
  graduate level student in Chemical Engineering or equivalent.
- \item The end user is expected to have an understanding of LabVIEW and the 
-ability to operate it.
- \item The end user is expected to have an understanding of ProMV and the 
-ability to operate it.
+ \item The end user is expected to have an understanding of DAQ software such
+ as LabView and the ability to operate it.
+ \item The end user is expected to have an understanding of statistical analysis
+ software such as ProMV and the ability to operate it.
 \end{itemize}
 \subsection{System Constraints}
 
 \begin{itemize}
-\item \progname{} must function with the LabVIEW \cite{TDMS} software used to 
-gather input,
-  as well as produce text files in a format ProMV \cite{ProMV} can read.  
+\item \progname{} must be capable of interpreting TDMS files as input \cite{TDMS} 
+and producing text files in a format accepted by ProMV \cite{ProMV}.  
 \item \progname{} must be developed for and be compatible with Python version
   2.7 and all associated modules.
 \end{itemize}
@@ -363,23 +362,21 @@ Signal
   not write to the file, and proceed to the next test.  
 \item \hyperref[UC_InputFile]{Use Case 2}
  refers to the user providing input
- to \progname{}. Once the user has input a directory 
-\progname{} shall search the directory for TDMS files. The starting, stopping
+ to \progname{}. Once the user has input a directory, 
+\progname{} will search that directory for TDMS files. The starting, stopping
 and step frequencies are also input for use within the analysis.
 
 \item \hyperref[UC_Filter]{Use Case 3} describes the filtering of the original
- signals found with the TDMS Files. The input found through
- \hyperref[UC_InputFile]{Use Case 2} is filtered before any analysis is done.
+  signals from the directory input of \hyperref[UC_InputFile]{Use Case 1}. 
 
 \item \hyperref[UC_AnalyzeInput]{Use Case 4} describes the analysis being
-  done. \progname{} will take each given input and transform the signal it
-  contains into the frequency spectrum. This is done for both the original
+  done. \progname{} will take all the files from \hyperref[UC_InputFile]{Use Case 1} 
+  and transform each signal to the frequency domian. This is done for both the raw
   signals and the filtered signals.
 
 \item \hyperref[UC_PlotTrans]{Use Case 5} gives output to the user in the form
-  of a series of plots and three text files. Each TDMS file creates two plots, 
-one amplitude vs time and another amplitude vs frequency. Additionally 
-one contour plot is created for the directory.
+  of a series of plots and three text files. Each file from \hyperref[UC_InputFile]{Use Case 1} 
+  creates two plots, the first representing the time domin of the signal and the second the frequency domin.           Additionally one contour plot showing generated vs. recieved frequency is created for the directory.
 \end{itemize}
 
 \section{Specific System Description}
@@ -392,8 +389,8 @@ definitions that describe the analysis of the signals.
 \subsection{Problem Description} \label{Sec_pd}
 
 A system is needed to efficiently and correctly interpret a signal. \progname{}
-is a computer program developed to interpret acoustic data and produce a
-waveform that can be related to damage in plastic parts.
+is a computer program developed to interpret acoustic data, produce a
+waveform, and analyze it for relation to damage in plastic parts.
 
 %\subsubsection{Background}
 
@@ -408,36 +405,37 @@ easier to correctly understand the requirements:
 \item Radian: A unit of angle, equal to an angle at the center of a circle whose
   arc is equal in length to the radius.
 \item Acoustics: The science of studying mechanical waves in gases, liquids and
-  solids. Specifically \progname{} refers to the study of sound waves in solids.
+  solids. Specifically \progname{} is used for studying sound waves in solids.
 \item Fit Criterion: A benchmark to objectively determine whether the
   implemented product has properly met the requirements.
 \item LabVIEW: A separate software program that creates TDMS files for 
 \progname{} to analyze.
-\item ProMV: A separate software program that receives the text files
-  \progname{} produces as its input. Performs further analysis on the signals.
+\item ProMV: A separate software program that uses the text files produced in
+  \progname{} as input. Performs further statistical analysis on the signals.
 \item TDMS: Labview Binary Measurement File. More information can be found here 
 \cite{TDMS}\\
 \item System as is: Implementation of PolyHarmonics created before June 3rd 
 2015.
 \item System to be: The system that will be created through the use of this 
 documentation.
-\item Recorded Frequency: The frequency LabVIEW received and stored.
+\item Recorded Frequency: The frequency received and stored.
 \item Emitted Frequency: The frequency sent into the plastic part
 \end{itemize}
 
 \subsubsection{Physical System Description}
 
-The physical system involves testing a plastic part for damage. A signal is sent 
-through a plastic part by an emitter and taken in by a receiver. The frequency 
-of the received signal is then analyzed.
+The physical system involves testing a plastic part for possible damage and 
+characterization through frequency anaysis. A signal is sent through a plastic part 
+by an emitter and taken in by a receiver. The frequency of the received signal is 
+then analyzed and compared against other datasets.
 
 \subsubsection{Goal Statements}
 
 \begin{itemize}
 \item[GS\refstepcounter{goalnum}\thegoalnum:] Analyze an acoustic signal by 
-receiving a directory containing one or more TDMS files as input and returning
-details of the transformed signal that can be related to damage in the
- plastic part.
+receiving a directory containing TDMS files as input and returning
+details of the transformed signal that can be related to possible damage in the
+ plastic part or internal structural characteristics of the plastic.
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
@@ -645,13 +643,14 @@ files must be verified.
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Filter}:] 
 \textbf{Description:} \progname{} shall use the input files to apply a Haar 
 wavelet filter. \cite{WaveletIntro} \cite{WaveletGuide}\\ 
-\textbf{Rationale:} 
+\textbf{Rationale:} The Harr wavelet is capable of narrowing our frequency band of 
+interest unveiling damage and polymer structural characteristics. 
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Tranform}:] 
 \textbf{Description:} \progname{} shall use the input files to calculate the DFT
 using T\ref{T1}.\\
-\textbf{Rationale:} The signal must be transformed into the frequency spectrum
-to properly analyze and interpret the signal.\newline
+\textbf{Rationale:} The signal must be transformed to the frequency domain
+for further signal analysis.\newline
 
 %Fit Criterion: Each signal found shall have a corresponding frequency spectrum
 %signal from which analysis can be done.
@@ -732,14 +731,13 @@ N/A
 
 \noindent \begin{itemize}
 \item[UH\refstepcounter{uahnum}\theuahnum\label{NF_uah1}:] \progname{} shall be
-  usable for collecting and analyzing data by any senior
-  undergraduate or graduate student studying Chemical Engineering or equivalent
-  with no training.
+  usable for analyzing data by any senior undergraduate or graduate student 
+  studying Chemical Engineering or equivalent with no training.
 
   \textbf{Fit Criterion:} At least \hyperref[AppendA]{MIN\_PERCENT\_USERS}
-  shall be able to collect data in accordance with \hyperref[UseCase]{Use Case 
+  shall be able to input data in accordance with \hyperref[UseCase]{Use Case 
 1}, and perform an analysis as described by \hyperref[UseCase]{Use Case 
-3}, \hyperref[UseCase]{Use Case 4} and \hyperref[UseCase]{Use Case 5}
+2}, \hyperref[UseCase]{Use Case 3} and \hyperref[UseCase]{Use Case 4}
  with no training.
 \end{itemize}
 
@@ -865,14 +863,14 @@ N/A
   receive input from a series of files created within LabVIEW.
 
   \textbf{Fit Criterion:} \progname{} shall receive one or more TDMS files as 
-input in accordance with \hyperref[UseCase]{Use Case 2}, if none are found
+input in accordance with \hyperref[UseCase]{Use Case 1}, if none are found
  the user shall be warned.
 
 \item[OE\refstepcounter{oaenum}\theoaenum\label{NF_AS2}:] The product shall
   produce text files for ProMV to receive as input.
 
   \textbf{Fit Criterion:} The text files produced shall be of the same format as 
-the system as is.
+the system requires.
 \end{itemize}
 
 
