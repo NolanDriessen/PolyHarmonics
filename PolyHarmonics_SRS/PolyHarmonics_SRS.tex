@@ -245,7 +245,8 @@ implementation.
 \subsection{Scope of Requirements} 
 
 The scope of the requirements includes analyzing an input signal and
-transforming it to an understandable form. Given a series of TDMS files generated 
+transforming it to an understandable form. Given a series of TDMS files 
+generated 
 from LabVIEW DAQ software, \progname{} reads the data, outputs waveforms, 
 and writes text files for interpretaion of damage in plastic parts.
 
@@ -326,10 +327,6 @@ This section presents the scope of the project. It describes the expected use of
     \textbf{Use Case No.} & \textbf{Use Case Name} & \textbf{Actor} & 
 \textbf{Input and Output}\\
    \midrule
-\label{UC_RecordSig}   \refstepcounter{ucnum}\theucnum  & Record Signals 				& 
-User 
-			& Frequency \newline(input)\\
-     &		 				  		&				& Acoustic Signal (output)\\ \midrule
 \label{UC_InputFile}   \refstepcounter{ucnum}\theucnum  & Input	  				& User			
 & File Directory (input)\\ 
 	&								&				& Starting Frequency (input)\\
@@ -355,28 +352,22 @@ Signal
 \subsection{Individual Product Use Cases}
 
 \begin{itemize}
-\item \hyperref[UC_RecordSig]{Use Case 1} refers to the collection of data for
-  \progname{} to analyze. A specific set of tests is done with a starting
-  frequency, ending frequency and step size between each trial. Each of these
-  frequencies will be tested for a signal and if a signal is detected it will  
-  be written into a TDMS file. If no signal is detected the system will  
-  not write to the file, and proceed to the next test.  
-\item \hyperref[UC_InputFile]{Use Case 2}
+\item \hyperref[UC_InputFile]{Use Case 1}
  refers to the user providing input
  to \progname{}. Once the user has input a directory 
 \progname{} shall search the directory for TDMS files. The starting, stopping
 and step frequencies are also input for use within the analysis.
 
-\item \hyperref[UC_Filter]{Use Case 3} describes the filtering of the original
+\item \hyperref[UC_Filter]{Use Case 2} describes the filtering of the original
  signals found with the TDMS Files. The input found through
- \hyperref[UC_InputFile]{Use Case 2} is filtered before any analysis is done.
+ \hyperref[UC_InputFile]{Use Case 1} is filtered before any analysis is done.
 
-\item \hyperref[UC_AnalyzeInput]{Use Case 4} describes the analysis being
+\item \hyperref[UC_AnalyzeInput]{Use Case 3} describes the analysis being
   done. \progname{} will take each given input and transform the signal it
   contains into the frequency spectrum. This is done for both the original
   signals and the filtered signals.
 
-\item \hyperref[UC_PlotTrans]{Use Case 5} gives output to the user in the form
+\item \hyperref[UC_PlotTrans]{Use Case 4} gives output to the user in the form
   of a series of plots and three text files. Each TDMS file creates two plots, 
 one amplitude vs time and another amplitude vs frequency. Additionally 
 one contour plot is created for the directory.
@@ -632,7 +623,8 @@ within files recorded by LabVIEW.\\
 \textbf{Description:} The product shall verify the input contains a signal
  with an amplitude greater than \hyperref[AppendA]{MIN\_AMP} and a frequency
   below \hyperref[AppendA]{MAX\_FREQ}. Unless both conditions are met 
-  the user shall be informed through a warning message. Otherwise the system will 
+  the user shall be informed through a warning message. Otherwise the system 
+will 
 proceed to the analysis.
 
 \textbf{Rationale:} To avoid any fatal exceptions the contents of all TDMS 
@@ -737,9 +729,9 @@ N/A
   with no training.
 
   \textbf{Fit Criterion:} At least \hyperref[AppendA]{MIN\_PERCENT\_USERS}
-  shall be able to collect data in accordance with \hyperref[UseCase]{Use Case 
-1}, and perform an analysis as described by \hyperref[UseCase]{Use Case 
-3}, \hyperref[UseCase]{Use Case 4} and \hyperref[UseCase]{Use Case 5}
+  shall be able to perform an analysis as described by \hyperref[UseCase]{Use 
+Case 
+2}, \hyperref[UseCase]{Use Case 3} and \hyperref[UseCase]{Use Case 4}
  with no training.
 \end{itemize}
 
@@ -865,7 +857,7 @@ N/A
   receive input from a series of files created within LabVIEW.
 
   \textbf{Fit Criterion:} \progname{} shall receive one or more TDMS files as 
-input in accordance with \hyperref[UseCase]{Use Case 2}, if none are found
+input in accordance with \hyperref[UseCase]{Use Case 1}, if none are found
  the user shall be warned.
 
 \item[OE\refstepcounter{oaenum}\theoaenum\label{NF_AS2}:] The product shall
@@ -1059,13 +1051,3 @@ UH\ref{NF_LR}, PR\ref{NF_SL1}, PR\ref{NF_SL2}, OE\ref{NF_PR2}\\
 \end{tabular}\\
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
